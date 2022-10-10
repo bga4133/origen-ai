@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { ChartComponent } from "../../Chart/ChartComponent";
 
 export const ItemDetail = ({ setShowItemDetail, dataApi }) => {
+  const [dataChart, setDataChart] = useState({
+    labels: dataApi.conv_info.data.map(data => data.loss),
+    datasets: [
+      {
+        label: "Loss simulation",
+        data: dataApi.conv_info.data.map(data => data.loss),
+        backgroundColor: ["white", "white", "white"]
+      }
+    ]
+  });
   const { label, status, machine, created, modified } = dataApi;
   const closeModal = () => {
     setShowItemDetail(false);
   };
+  useEffect(() => {
+    setDataChart({
+      labels: dataApi.conv_info.data.map(data => data.loss),
+      datasets: [
+        {
+          label: "Loss simulation",
+          data: dataApi.conv_info.data.map(data => data.loss),
+          backgroundColor: ["white", "white", "white"]
+        }
+      ]
+    });
+  }, [dataApi]);
   return (
     <div>
       <button
@@ -43,6 +66,7 @@ export const ItemDetail = ({ setShowItemDetail, dataApi }) => {
         <span>Modified: </span>
         {modified}
       </p>
+      <ChartComponent chartData={dataChart} />
     </div>
   );
 };

@@ -15,7 +15,6 @@ export const SimulationItem = ({ label, modified, status, created }) => {
       const [newData] = data;
       setDataApi(newData);
       setShowItemDetail(true);
-      console.log(dataApi);
       setIsLoading(false);
     } catch (error) {
       setDataApi(null);
